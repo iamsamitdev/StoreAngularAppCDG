@@ -1,0 +1,172 @@
+***********************************************
+Advanced Angular CDG
+***********************************************
+--------
+Day 1:
+--------
+Step 1: คำสั่งสร้างโปรเจ็กต์ใหม่ใน Angular
+---
+ng new StoreAngularApp
+
+Step 2: เปิดโปรเจ็กต์เข้า VSCode
+---
+code StoreAngularApp -r
+
+Step 3: ทดสอบรันโปรเจ็กต์
+---
+ng s -o
+
+Step 4: สร้างโฟลเดอร์สำหรับเก็บ Page ต่าง ๆ
+---
+pages ใน src/app
+backend ใน src/app/pages
+frontend ใน  src/app/pages
+auth ใน src/app/pages
+
+Step 5: สร้างโฟลเดอร์สำหรับเก็บ Layouts ต่างๆ
+---
+layouts ใน src/app
+backend-layout ใน src/app/layouts
+frontend-layout ใน src/app/layouts
+auth-layout ใน src/app/layouts
+
+Step 6: สร้างโฟลเดอร์สำหรับเก็บไฟล์ที่ใช้ร่วมกัน
+---
+shared ใน src/app
+backend-shared ใน src/app/
+frontend-shared  ใน src/app/
+
+Step 7: การสร้าง Layout ด้วยคำสั่ง ng generate component
+---
+ng g c layouts/frontendLayout
+ng g c layouts/backendLayout
+ng g c layouts/authLayout
+
+Step 8: การสร้าง Pages ด้วยคำสั่ง ng generate component
+---
+ng g c pages/frontend/home
+ng g c pages/frontend/about
+ng g c pages/frontend/contact
+
+ng g c pages/auth/login
+ng g c pages/auth/register
+ng g c pages/auth/forgotpass
+
+Step 9: การสร้าง Shared ด้วยคำสั่ง ng generate component
+---
+ng g c shared/frontend-shared/headerFrontend
+
+ng g c shared/frontend-shared/footerFrontend
+
+Step 10: เพิ่มโค้ดส่วน frontend-layout ที่ไฟล์ 
+frontend-layout.component.html
+---
+<app-header-frontend></app-header-frontend>
+
+<router-outlet></router-outlet>
+
+<app-footer-frontend></app-footer-frontend>
+
+Step 11: เขียนส่วน routing ที่ไฟล์ app-routing.module.ts
+---
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FrontendLayoutComponent } from './layouts/frontend-layout/frontend-layout.component';
+import { HomeComponent } from './pages/frontend/home/home.component';
+import { AboutComponent } from './pages/frontend/about/about.component';
+import { ContactComponent } from './pages/frontend/contact/contact.component';
+
+const routes: Routes = [
+  // Route for Frontend Layout
+  {
+    path: '',
+    component: FrontendLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+      {
+        path: 'about',
+        component: AboutComponent,
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
+      },
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+
+Step 12: ติดตั้ง bootstrap 5.x framework
+---
+npm install bootstrap@5
+
+Step 13: เพิ่ม path ของ bootstrap  ที่ไฟล์ angular.json
+---
+"styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
+
+Step 14: ติดตั้ง Bootstrap Icons
+---
+npm i bootstrap-icons
+
+
+Step 15: import ที่ไฟล์ styles.scss
+---
+@import "/node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+Step 16: ปรับแต่งหน้า login.component.html
+---
+<main class="form-signin w-100 m-auto mt-5 text-center">
+    <form>
+        <img class="mb-4" src="/assets/images/logo/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
+    </form>
+</main>
+
+Step 17: สร้าง headerBackend, footerBackend, sidebarBackend
+---
+ng g c shared/backend-shared/headerBackend
+
+ng g c shared/backend-shared/footerBackend
+
+ng g c shared/backend-shared/sidebarBackend
+
+Step 18: สร้าง backend pages
+---
+ng g c pages/backend/dashboard
+ng g c pages/backend/stock
+ng g c pages/backend/report
+ng g c pages/backend/users
+ng g c pages/backend/setting
+
+
